@@ -13,14 +13,43 @@ let puzzle = [
 
 console.log(puzzle);
 
-console.log(isValid(puzzle, 6, 1, 5));
 
-var empty = findEmpty(puzzle);
+solvePuzzle(puzzle);
 
-var r = empty[0];
-var c = empty[1];
 
-console.log(r, c);
+function solvePuzzle(puzzle){
+
+    var empty = findEmpty(puzzle);
+
+    if(!empty){
+        return true;
+    } else {
+
+        var row = empty[0];
+        var col = empty[1];
+
+        for (let i = 1; i < 10; i++) {
+           
+            if(isValid(puzzle, i, row, col)){
+
+                puzzle[row][col] = i;
+
+                if(solvePuzzle(puzzle)){
+
+                    return true;
+
+                } else{
+
+                    puzzle[row][col] = 0;
+
+                }
+
+            }
+        }
+
+    }
+}
+
 
 function isValid(puzzle, num, row, col){
 
@@ -52,7 +81,7 @@ function isValid(puzzle, num, row, col){
        
         for (var j = colFrom; j < colTo; j++) {
             
-            if(puzzle[i][j] == num && i != row && j != col){
+            if(puzzle[i][j] == num && !(i == row && j == col)){
 
                 return false
             }
@@ -63,6 +92,7 @@ function isValid(puzzle, num, row, col){
 
     return true;
 }
+
 
 function findEmpty(puzzle){
 
