@@ -11,10 +11,55 @@ let puzzle = [
 ];
 
 
-console.log(puzzle);
+printPuzzle(puzzle);
+
+addButtonListener();
 
 
-solvePuzzle(puzzle);
+
+
+
+function printPuzzle(puzzle){
+
+    var target = document.getElementById('board');
+
+    target.innerHTML = '';
+
+    for (var i = 0; i < puzzle.length; i++) {
+        
+        for (var j = 0; j < puzzle[i].length; j++) {
+            
+            var num = '';
+
+            if(puzzle[i][j] != 0){
+                num = puzzle[i][j];
+            }
+
+            var newLi = document.createElement("li");
+ 
+            //Set its unique ID.
+            newLi.className = 'row-' + i + ' col-' + j;
+            
+            //Add your content to the DIV
+            newLi.innerHTML = num;
+            
+            target.appendChild(newLi);
+            
+        }
+        
+    }
+}
+
+function addButtonListener(){
+
+    document.getElementById('solve-btn').addEventListener('click', function(){
+
+        solvePuzzle(puzzle);
+
+        printPuzzle(puzzle)
+    });
+
+}
 
 
 function solvePuzzle(puzzle){
